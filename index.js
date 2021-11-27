@@ -6,13 +6,11 @@ const validator = require('./lib/validator');
 
 module.exports = function(options) {
     const opts = options || {}
-    const attributeMode =  typeof opts.attributeMode === 'undefined' ? true : opts.attributeMode;
-    const wrapMode = typeof opts.wrapMode === 'undefined' ? true : opts.wrapMode;
 
 
     
     const createStream = function() {
-        return new XMLtoJSONstream({attributeMode: attributeMode});
+        return new XMLtoJSONstream(opts);
     } 
 
 
@@ -26,7 +24,7 @@ module.exports = function(options) {
 
         let json;
         try {
-            json = traverse(clean,attributeMode,wrapMode);
+            json = traverse(clean,opts);
             return cb(null,json);
         }catch(e) {
             return cb(e);
